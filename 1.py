@@ -1,3 +1,5 @@
+import time
+
 def read_input():
     input_file = "inputs/example.in"
     input_file = "inputs/1.in"
@@ -23,8 +25,7 @@ def first_part():
     sum = 0
     for i in range(len(left_list)):
         sum += abs(int(left_list[i]) - int(right_list[i]))
-
-    print("First part: ", sum)
+    return sum
 
 
 def second_part():
@@ -45,8 +46,19 @@ def second_part():
     sum = 0
     for item in left_list:
         sum += int(item) * num_of_occurences_sorted(item, right_list)
-    print("Second part:", sum)
+    return sum
 
+start_time = time.perf_counter()
+first = first_part()
+end_time = time.perf_counter()
+print("First part: ", first)
+execution_time = (end_time - start_time) * 1000
+print(f"Execution time: {execution_time:.4f} ms")
 
-first_part()
-second_part()
+start_time = time.perf_counter()
+second = second_part()
+end_time = time.perf_counter()
+print("Second part:", second)
+execution_time = (end_time - start_time) * 1000
+print(f"Execution time: {execution_time:.4f} ms")
+
