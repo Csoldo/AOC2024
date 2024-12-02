@@ -31,9 +31,7 @@ def first_part():
                     break
         if safe:
             cnt += 1
-            print(row)
     return cnt
-
 
 start_time = time.perf_counter()
 first = first_part()
@@ -63,7 +61,6 @@ def second_part():
         
         if safe:
             cnt += 1
-            print(row)
         else:
             for i in range(len(row)):
                 copied = deepcopy(row)
@@ -71,7 +68,6 @@ def second_part():
                 safe = check_row(copied)
                 if safe:
                     cnt += 1
-                    print(row)
                     break
     return cnt
 
