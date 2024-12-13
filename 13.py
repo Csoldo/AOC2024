@@ -11,7 +11,7 @@ class Point:
         return f"({self.x}, {self.y})"
     
     def __str__(self):
-        return f"(x, y)"
+        return f"({self.x}, {self.y})"
 
 def get_values(line: str):
     tmp = line.split(":")[1]
@@ -24,7 +24,6 @@ def get_values(line: str):
         x = tmp[0].split("=")[1]
         y = tmp[1].split("=")[1]
         return int(x), int(y)
-
 
 def read_input() -> [(Point, Point, Point)]: # type: ignore
     input_file = "inputs/example.in"
@@ -76,5 +75,26 @@ start_time = time.perf_counter()
 first = first_part()
 end_time = time.perf_counter()
 print("First part: ", first)
+execution_time = (end_time - start_time) * 1000
+print(f"Execution time: {execution_time:.4f} ms")
+
+
+def second_part():
+    data = read_input()
+    price = 0
+    for (a, b, prize) in data:
+        prize.x += 10000000000000
+        prize.y += 10000000000000
+        sol_x = (prize.x * b.y - prize.y * b.x) / (a.x * b.y - a.y * b.x)
+        sol_y = (a.x * prize.y - a.y * prize.x) / (a.x * b.y - a.y * b.x)
+        if sol_x == int(sol_x) and sol_y == int(sol_y):
+            price += (3*int(sol_x) + int(sol_y))
+
+    return price
+
+start_time = time.perf_counter()
+second = second_part()
+end_time = time.perf_counter()
+print("Second part:", second)
 execution_time = (end_time - start_time) * 1000
 print(f"Execution time: {execution_time:.4f} ms")
