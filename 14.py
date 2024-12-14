@@ -1,6 +1,8 @@
 import time
 from typing import List
 
+import matplotlib.pyplot as plt
+
 class Robot:
     position_x: int
     position_y: int
@@ -91,3 +93,38 @@ print("First part: ", first)
 execution_time = (end_time - start_time) * 1000
 print(f"Execution time: {execution_time:.4f} ms")    
 
+
+def second_part():
+    data = read_input()
+    x_size = 101
+    y_size = 103
+    num_of_seconds_start = 6000
+    num_of_seconds_end = 8000
+    rows, cols = 10, 10
+    fig, axes = plt.subplots(rows, cols, figsize=(cols * 3, rows * 3))
+    axes = axes.flatten()
+
+    cnt = 0
+    distinct_robot_cnt = 0
+    for s in range(num_of_seconds_start, num_of_seconds_end):
+        final_locations = [[0 for _ in range(x_size)] for _ in range(y_size)]
+        for robot in data:
+            final_x = (robot.position_x + robot.velocity_x * s) % x_size
+            final_y = (robot.position_y + robot.velocity_y * s) % y_size
+            
+            if final_locations[final_y][final_x] == 0:
+                final_locations[final_y][final_x] = 1
+                distinct_robot_cnt += 1
+
+        ax = axes[cnt]
+        ax.imshow(final_locations, cmap='gray', interpolation='none')
+        ax.set_title(f"Second {s}")
+        ax.axis('off')
+        cnt += 1
+
+start_time = time.perf_counter()
+second = second_part()
+end_time = time.perf_counter()
+print("Second part:", second)
+execution_time = (end_time - start_time) * 1000
+print(f"Execution time: {execution_time:.4f} ms")
